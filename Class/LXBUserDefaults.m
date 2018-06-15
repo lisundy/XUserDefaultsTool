@@ -34,7 +34,7 @@ static const char xb_unsigned_long = 'L';
 static const char xb_longlong = 'q';
 static const char xb_unsigned_longlong = 'Q';
 
-static NSString *const xb_property_suffix = @"_xb_userDefaults_key";
+static NSString *const xb_property_suffix = @"_userDefaults_key";
 
 @implementation LXBUserDefaults
 
