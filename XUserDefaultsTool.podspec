@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name         = 'XUserDefaultsTool'
-s.version      = '0.0.1'
+s.version      = '0.0.2'
 s.summary      = 'Easy to use NSUserDefaults'
 s.homepage     = 'https://github.com/lisundy/XUserDefaultsTool'
 s.license      = 'MIT'
