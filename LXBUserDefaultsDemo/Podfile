@@ -1,0 +1,11 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/lisundy/XUserDefaultsTool.git'
+
+platform :ios, '8.0'
+
+target 'LXBUserDefaultsDemo' do
+
+pod 'XUserDefaultsTool'
+
+end
+
