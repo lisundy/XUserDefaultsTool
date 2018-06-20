@@ -19,7 +19,8 @@ pod install
 
 2、使用方式
 
-a、导入Source文件
+a、导入Source文件夹。
+
 b、在分类头文件中声明要定义的属性，也就是key。如下：
     
     @interface NSUserDefaults (Utils)
