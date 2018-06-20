@@ -19,6 +19,5 @@ pod install
 
 2、代码示例
 
-    ```javascripts
     TestUserDefaults *userDefault = [TestUserDefaults sharedInstance];
     userDefault.name = @"testname";
