@@ -1,19 +1,14 @@
 //
-//  LLXBUserDefaults.m
-//  LLXBUserDefaultsDemo
+//  NSUserDefaults+Utils.m
+//  TestDemo
 //
-//  Created by 李小兵 on 2018/6/15.
+//  Created by 李小兵 on 2018/6/20.
 //  Copyright © 2018年 李小兵. All rights reserved.
 //
 
-#import "LXBUserDefaults.h"
+#import "NSUserDefaults+Utils.h"
 #import <objc/message.h>
 
-@interface LXBUserDefaults()
-
-@property (nonatomic ,strong) NSUserDefaults *userDefaults;
-
-@end
 static const char xb_id = '@';
 
 static const char xb_bool = 'B';
@@ -34,9 +29,10 @@ static const char xb_unsigned_long = 'L';
 static const char xb_longlong = 'q';
 static const char xb_unsigned_longlong = 'Q';
 
-static NSString *const xb_property_suffix = @"_userDefaults_key";
+static NSString *const xb_property_suffix = @"_xb_userDefaults_key";
 
-@implementation LXBUserDefaults
+@implementation NSUserDefaults (Utils)
+
 
 
 +(BOOL)resolveInstanceMethod:(SEL)sel{
@@ -131,72 +127,63 @@ static const char* getPropertyNameFromSetSelector(SEL _cmd){
 #pragma mark -- 类型动态方法
 // integer
 static void autoIntegerTypeSetter(id self,SEL _cmd ,long value){
-    LXBUserDefaults *typedSelf = (LXBUserDefaults *)self;
     NSString *key = getKeyWithSelector(_cmd, YES);
-    [typedSelf.userDefaults setInteger:value forKey:key];
+    [self setInteger:value forKey:key];
 }
 
 static long autoIntegerTypeGetter(id self,SEL _cmd){
-    LXBUserDefaults *typedSelf = (LXBUserDefaults *)self;
     NSString *key = getKeyWithSelector(_cmd, NO);
-    return [typedSelf.userDefaults integerForKey:key];
+    return [self integerForKey:key];
 }
 
 // float
 static void autoFloatTypeSetter(id self,SEL _cmd ,float value){
-    LXBUserDefaults *typedSelf = (LXBUserDefaults *)self;
     NSString *key = getKeyWithSelector(_cmd, YES);
-    [typedSelf.userDefaults setFloat:value forKey:key];
+    [self setFloat:value forKey:key];
 }
 
 static float autoFloatTypeGetter(id self,SEL _cmd){
-    LXBUserDefaults *typedSelf = (LXBUserDefaults *)self;
     NSString *key = getKeyWithSelector(_cmd, NO);
-    return [typedSelf.userDefaults floatForKey:key];
+    return [self floatForKey:key];
 }
 
 // double
 static void autoDoubleTypeSetter(id self,SEL _cmd ,double value){
-    LXBUserDefaults *typedSelf = (LXBUserDefaults *)self;
     NSString *key = getKeyWithSelector(_cmd, YES);
-    [typedSelf.userDefaults setDouble:value forKey:key];
+    [self setDouble:value forKey:key];
 }
 
 static double autoDoubleTypeGetter(id self,SEL _cmd){
-    LXBUserDefaults *typedSelf = (LXBUserDefaults *)self;
     NSString *key = getKeyWithSelector(_cmd, NO);
-    return [typedSelf.userDefaults doubleForKey:key];
+    return [self doubleForKey:key];
 }
 
 // bool
 static void autoBoolTypeSetter(id self,SEL _cmd ,bool value){
-    LXBUserDefaults *typedSelf = (LXBUserDefaults *)self;
     NSString *key = getKeyWithSelector(_cmd, YES);
-    [typedSelf.userDefaults setBool:value forKey:key];
+    [self setBool:value forKey:key];
 }
 
 static BOOL autoBoolTypeGetter(id self,SEL _cmd){
-    LXBUserDefaults *typedSelf = (LXBUserDefaults *)self;
     NSString *key = getKeyWithSelector(_cmd, NO);
-    return [typedSelf.userDefaults boolForKey:key];
+    return [self boolForKey:key];
 }
 
 // id
 static void autoIdTypeSetter(id self,SEL _cmd ,id value){
-    LXBUserDefaults *typedSelf = (LXBUserDefaults *)self;
     NSString *key = getKeyWithSelector(_cmd, YES);
     if (!value) {
-        [typedSelf.userDefaults removeObjectForKey:key];
+        [self removeObjectForKey:key];
     }else if ([value isKindOfClass:NSURL.class]) {
-        [typedSelf.userDefaults setURL:(NSURL *)value forKey:key];
+        [self setURL:(NSURL *)value forKey:key];
     }else{
-        [typedSelf.userDefaults setObject:value forKey:key];
+        [self setObject:value forKey:key];
     }
 }
 
 static id autoIdTypeGetter(id self,SEL _cmd){
-    LXBUserDefaults *typedSelf = (LXBUserDefaults *)self;
-    
+    NSUserDefaults *typedSelf = (NSUserDefaults *)self;
+
     NSString *propertyKey = NSStringFromSelector(_cmd);
     objc_property_t property = class_getProperty(typedSelf.class, [propertyKey UTF8String]);
     const char * property_attr = property_getAttributes(property);
@@ -204,11 +191,10 @@ static id autoIdTypeGetter(id self,SEL _cmd){
     
     NSString *key = getKeyWithSelector(_cmd, NO);
     if ([type containsString:@"NSURL"]) {
-        return [typedSelf.userDefaults URLForKey:key];
+        return [self URLForKey:key];
     }else{
-        return [typedSelf.userDefaults objectForKey:key];
+        return [self objectForKey:key];
     }
 }
-
 
 @end
