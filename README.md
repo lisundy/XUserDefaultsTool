@@ -1,5 +1,5 @@
 # XUserDefaults
-对iOS NSUserDefaults的封装,主要使用runtime转化成对象，便于管理key
+使用NSUserDefault的类别,用runtime将key与属性的get set方法联系起来，便于管理key
 数据存储还是使用NSUserDefaults，只不过简化了key的管理。
 
 //使用示例
