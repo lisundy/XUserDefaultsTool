@@ -17,7 +17,21 @@ end
 
 pod install 
 
-2、代码示例
+2、使用方式
 
-    TestUserDefaults *userDefault = [TestUserDefaults sharedInstance];
-    userDefault.name = @"testname";
+a、导入Source文件
+b、在分类头文件中声明要定义的属性，也就是key。如下：
+    @interface NSUserDefaults (Utils)
+
+    @property (nonatomic, copy) NSString *name;
+
+    @end
+    
+    使用时 import 分类头文件：
+    
+
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    if (!userDefault.name) {
+        userDefault.name = @"test";
+    }
+    NSLog(@"%@",userDefault.name);
